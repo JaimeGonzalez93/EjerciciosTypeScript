@@ -1,6 +1,9 @@
 // Creamos una enumeración para limitar las operaciones existentes en nuestra calculadora.
 enum Operacion {
     SUMA = '+',
+    RESTA = '-',
+    DIVISION = '/',
+    MULTIPLICACION = '*',
 }
 
 /** OPCIÓN 1: Añadimos los operandos y la operación manualmente desde nuestro archivo typescript */
@@ -26,10 +29,20 @@ const operacion: Operacion = process.argv[4] as Operacion;
 /** Creamos una función que raliza la operación que le especifiquemos y devuelve el resultado.
  * Si la operació no existe devuelve -1
  */
-const operar = (operando1: number, operando2: number, operacion: Operacion): number => {
+const operar = (operando1: number, operando2: number, operacion: Operacion): number=> {
     switch(operacion) {
         case Operacion.SUMA:
             return sumar(operando1, operando2);
+
+        case Operacion.RESTA:
+            return restar(operando1, operando2);
+        
+        case Operacion.DIVISION:
+            return division(operando1, operando2);
+        
+        case Operacion.MULTIPLICACION:
+            return multiplicacion(operando1, operando2);
+
         default:
             console.log('ERROR: La operación introducida no existe');
             return -1;
@@ -41,6 +54,18 @@ const sumar = (operando1: number, operando2: number) => {
     return operando1 + operando2;
 }
 
+const restar = (operando1: number, operando2: number) => {
+    return operando1-operando2;
+}
+
+const division = (operando1:number, operando2:number) => {
+    if (operando2 === 0) { console.log("ERROR: No se puede dividir entre 0") } 
+    return operando1/operando2;
+}
+
+const multiplicacion = (operando1:number, operando2: number) => {
+    return operando1*operando2;
+}
 /** Se infiere el tipo number de la función al ser el tipo de su valor de retorno */
 const result = operar(operando1, operando2, operacion);
 /** Imprimimos el resultado de nuestra operación */
